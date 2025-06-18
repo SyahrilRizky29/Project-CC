@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Most Popular Games - Pop-up Detail</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+  /* Reset and base */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #1c1c2e; /* dark background template default */
+    color: #eee;
+    min-height: 100vh;
+    padding: 24px;
+  }
+  h2,h3 {
+    font-weight: 700;
+  }
+
+  /* Container for the section */
+  .most-popular-section {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  h1.section-title {
+    font-size: 2.8rem;
+    margin-bottom: 32px;
+    background: linear-gradient(135deg, #7c3aed, #4c1d95);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Grid for cards: 4 columns desktop, 2 tablet, 1 mobile */
+  .game-list {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .game-card {
+    background: #29294d;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(124, 58, 237, 0.2);
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+    border: 2px solid transparent;
+  }
+  .game-card:hover, .game-card:focus {
+    outline: none;
+    transform: translateY(-6px);
+    border-color: #7c3aed;
+    box-shadow: 0 12px 20px rgba(124, 58, 237, 0.7);
+  }
+  .game-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+  }
+  .game-card h3 {
+    padding: 16px 16px 24px;
+    font-size: 1.25rem;
+    color: #ddd;
+    flex-grow: 1;
+  }
+
+  /* Overlay for popup background */
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right:0;
+    bottom: 0;
+    background-color: rgba(28, 28, 46, 0.88);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+  }
+
+  /* Popup styling */
+  .popup {
+    background: linear-gradient(135deg, #4c1d95, #7c3aed);
+    color: white;
+    max-width: 460px;
+    width: 90%;
+    padding: 28px 32px;
+    border-radius: 20px;
+    box-shadow: 0 0 24px #7c3aed;
+    position: relative;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .popup h2 {
+    font-size: 2rem;
+    margin-bottom: 16px;
+  }
+  .popup p {
+    margin-bottom: 12px;
+  }
+  .popup p strong {
+    color: #dcd6f7;
+  }
+  .popup .desc {
+    margin-top: 16px;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: #e3e0ffcc;
+  }
+
+  /* Close button */
+  .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    color: #ddd;
+    font-size: 28px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  .close-btn:hover {
+    color: #fff;
+  }
+
+  /* Responsive text scaling */
+  @media (max-width: 600px) {
+    h1.section-title {
+      font-size: 2rem;
+    }
+    .popup {
+      max-width: 95vw;
+      font-size: 0.95rem;
+    }
+    .game-card img {
+      height: 120px;
+    }
+  }
+</style>
+</head>
+<body>
+  <section class="most-popular-section" aria-label="Most Popular Games Right Now">
+    <h1 class="section-title">Most Popular Right Now</h1>
+    <div class="game-list" role="list">
+      <!-- Card Game HTML generated below -->
+      <!-- Sampel 30 card game -->
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('fortnite')" onkeypress="if(event.key==='Enter'){showPopup('fortnite')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4fc817de-0acc-4502-8bb1-9968e27d7d82.png" alt="Cover game Fortnite dengan warna ungu dan ikon karakter" />
+        <h3>Fortnite</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('pubg')" onkeypress="if(event.key==='Enter'){showPopup('pubg')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ce07740f-ded8-40c1-937a-ed4673ca4e0b.png" alt="Cover game PUBG dengan background gelap dan logo" />
+        <h3>PUBG</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('dota2')" onkeypress="if(event.key==='Enter'){showPopup('dota2')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d06729ef-b84a-4e1d-b24f-0d17f9fc2515.png" alt="Cover game Dota 2 dengan warna ungu dan logo Dota" />
+        <h3>Dota 2</h3>
+      </div>
+      <!-- Tambah 27 game card lain dengan nama unik dan gambar placeholder -->
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('apex')" onkeypress="if(event.key==='Enter'){showPopup('apex')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7ac02863-7fcd-4ffe-96b7-d2c20005eadc.png" alt="Cover game Apex Legends warna ungu tua dengan ikon" />
+        <h3>Apex Legends</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('csgo')" onkeypress="if(event.key==='Enter'){showPopup('csgo')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2e695306-8eb3-41a1-af5d-5a59be683d52.png" alt="Cover game Counter Strike Global Offensive warna ungu sedang" />
+        <h3>CS:GO</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('callofduty')" onkeypress="if(event.key==='Enter'){showPopup('callofduty')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/74d8f79c-ecf9-4ee9-b2c0-b865948d9fe5.png" alt="Cover game Call of Duty warna ungu gelap ikon tempur" />
+        <h3>Call of Duty</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('minecraft')" onkeypress="if(event.key==='Enter'){showPopup('minecraft')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8bb9111b-81ca-49d0-bace-c2df8b52519c.png" alt="Cover game Minecraft warna ungu cerah kotak-kotak" />
+        <h3>Minecraft</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('leagueoflegends')" onkeypress="if(event.key==='Enter'){showPopup('leagueoflegends')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/17659c92-af9d-413f-8fa0-280ddfe1f739.png" alt="Cover game League of Legends warna ungu dengan logo LOL" />
+        <h3>League of Legends</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('valorant')" onkeypress="if(event.key==='Enter'){showPopup('valorant')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/498b58c1-bef7-4f77-99b9-c1d1bb84dee8.png" alt="Cover game Valorant warna ungu kebiruan ikon spray" />
+        <h3>Valorant</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('overwatch')" onkeypress="if(event.key==='Enter'){showPopup('overwatch')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0e6f4b0c-6c67-44bb-a521-042ca135cab0.png" alt="Cover game Overwatch warna ungu tua dengan logo" />
+        <h3>Overwatch</h3>
+      </div>
+      <!-- Sisa sampai 30 card ditambahkan dengan nama game berbeda dan src placeholder -->
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('fifa')" onkeypress="if(event.key==='Enter'){showPopup('fifa')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9d5c0013-0746-476f-86ca-d712a435ff95.png" alt="Cover game FIFA warna ungu cerah dengan bola sepak" />
+        <h3>FIFA</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('rocketleague')" onkeypress="if(event.key==='Enter'){showPopup('rocketleague')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/39166681-27ca-452b-b4e5-b431943dcdba.png" alt="Cover game Rocket League warna ungu dan biru dengan bola" />
+        <h3>Rocket League</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('skyrim')" onkeypress="if(event.key==='Enter'){showPopup('skyrim')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5c8414a1-168e-4c5d-99ba-f5145bd01a12.png" alt="Cover game Skyrim warna ungu gelap dengan dragon icon" />
+        <h3>Skyrim</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('cyberpunk')" onkeypress="if(event.key==='Enter'){showPopup('cyberpunk')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/60de0f11-eb29-4544-9c2b-b27462664dff.png" alt="Cover game Cyberpunk 2077 ungu dan kuning dengan visual neon" />
+        <h3>Cyberpunk 2077</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('thewitcher')" onkeypress="if(event.key==='Enter'){showPopup('thewitcher')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0ef08389-3bc0-4361-b028-6e03e71ded98.png" alt="Cover game The Witcher 3 warna ungu dengan karakter" />
+        <h3>The Witcher 3</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('halo')" onkeypress="if(event.key==='Enter'){showPopup('halo')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2428ca3f-0941-4cc3-ab3c-8b24e9bd613c.png" alt="Cover game Halo warna ungu dengan ikon senjata sci-fi" />
+        <h3>Halo</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('eldenring')" onkeypress="if(event.key==='Enter'){showPopup('eldenring')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3abbac6f-b3ac-4d2f-906d-6e1c86e6df66.png" alt="Cover game Elden Ring warna ungu dengan logo dan seni gelap" />
+        <h3>Elden Ring</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('rainbowsix')" onkeypress="if(event.key==='Enter'){showPopup('rainbowsix')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e97a81f0-54c2-4dae-b61e-6d6d8b6b0bad.png" alt="Cover game Rainbow Six Siege warna ungu dan biru dengan ikon raid" />
+        <h3>Rainbow Six Siege</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('roblox')" onkeypress="if(event.key==='Enter'){showPopup('roblox')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7070cad9-1c15-43e6-8166-7d9bfa2d7da6.png" alt="Cover game Roblox warna ungu muda dengan logo blok" />
+        <h3>Roblox</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('worldofwarcraft')" onkeypress="if(event.key==='Enter'){showPopup('worldofwarcraft')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0631f714-f547-4ed5-b0bb-e4c5cc6589e0.png" alt="Cover game World of Warcraft warna ungu dan emas dengan logo" />
+        <h3>World of Warcraft</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('fallguys')" onkeypress="if(event.key==='Enter'){showPopup('fallguys')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/acbd8afe-bbc9-48ee-88fb-f3b70b422c41.png" alt="Cover game Fall Guys warna ungu cerah dengan karakter" />
+        <h3>Fall Guys</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('amongus')" onkeypress="if(event.key==='Enter'){showPopup('amongus')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/510459b1-7643-4419-9ee6-f8765aa5ed47.png" alt="Cover game Among Us warna ungu dengan karakter astronot" />
+        <h3>Among Us</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('terraria')" onkeypress="if(event.key==='Enter'){showPopup('terraria')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f00e8f72-3e96-44e5-ae40-6abb22b1ab89.png" alt="Cover game Terraria warna ungu tua dengan blok" />
+        <h3>Terraria</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('jackbox')" onkeypress="if(event.key==='Enter'){showPopup('jackbox')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ad63fc24-8910-492d-a6ae-12d85859908c.png" alt="Cover game Jackbox Party warna ungu dan oranye" />
+        <h3>Jackbox Party</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('gta5')" onkeypress="if(event.key==='Enter'){showPopup('gta5')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0edd55d0-1c1e-40f5-aa76-8771556ff696.png" alt="Cover game GTA 5 warna ungu gelap dengan gambar mobil" />
+        <h3>GTA 5</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('destiny2')" onkeypress="if(event.key==='Enter'){showPopup('destiny2')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/85a32d8a-c947-48d2-9f05-392fa17f2faf.png" alt="Cover game Destiny 2 warna ungu dan biru" />
+        <h3>Destiny 2</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('monsterhunter')" onkeypress="if(event.key==='Enter'){showPopup('monsterhunter')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8b5eeb2b-4dd4-4eb2-9b6d-77d675763e25.png" alt="Cover game Monster Hunter warna ungu dan hijau" />
+        <h3>Monster Hunter</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('guiltygear')" onkeypress="if(event.key==='Enter'){showPopup('guiltygear')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5329401e-4003-485d-b018-6980d44de709.png" alt="Cover game Guilty Gear warna ungu dan merah" />
+        <h3>Guilty Gear</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('fallout')" onkeypress="if(event.key==='Enter'){showPopup('fallout')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3330a303-45c8-44fa-8c3b-b81afc16ae65.png" alt="Cover game Fallout warna ungu dan coklat" />
+        <h3>Fallout</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('portal')" onkeypress="if(event.key==='Enter'){showPopup('portal')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/841703ac-854b-43dd-a494-b2c09a0bed2c.png" alt="Cover game Portal ungu dan hitam dengan logo portal" />
+        <h3>Portal</h3>
+      </div>
+      <div tabindex="0" class="game-card" role="listitem" onclick="showPopup('rust')" onkeypress="if(event.key==='Enter'){showPopup('rust')}">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e5cf31ce-373e-45b4-8056-9c606a96aebc.png" alt="Cover game Rust warna ungu dan oranye" />
+        <h3>Rust</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popup container -->
+  <div id="popup-container" aria-live="polite" aria-atomic="true"></div>
+
+<script>
+  const gameDetails = {
+    fortnite: {
+      title: 'Fortnite',
+      releaseDate: "25 Juli 2017",
+      platform: "PC, PlayStation, Xbox, Switch, Mobile",
+      developer: "Epic Games",
+      publisher: "Epic Games",
+      genre: "Battle Royale, Action, Multiplayer",
+      ageRating: "T",
+      gameRating: "4.2",
+      description: "Game battle royale penuh warna dengan elemen bangunan dan mode kreatif, populer di kalangan gamer muda dan komunitas global."
+    },
+    pubg: {
+      title: 'PUBG',
+      releaseDate: "23 Maret 2017",
+      platform: "PC, PlayStation, Xbox, Mobile",
+      developer: "PUBG Corporation",
+      publisher: "PUBG Corporation",
+      genre: "Battle Royale, Shooter",
+      ageRating: "T",
+      gameRating: "4.0",
+      description: "Game Battle Royale realistis yang mengedepankan survival dan strategi dalam dunia terbuka besar."
+    },
+    dota2: {
+      title: 'Dota 2',
+      releaseDate: "9 Juli 2013",
+      platform: "PC",
+      developer: "Valve Corporation",
+      publisher: "Valve Corporation",
+      genre: "MOBA, Strategy",
+      ageRating: "T",
+      gameRating: "4.5",
+      description: "Game MOBA strategis dan kompetitif dengan komunitas besar dan turnamen skala dunia."
+    },
+    apex: {
+      title: "Apex Legends",
+      releaseDate: "4 Februari 2019",
+      platform: "PC, PlayStation, Xbox, Switch",
+      developer: "Respawn Entertainment",
+      publisher: "Electronic Arts",
+      genre: "Battle Royale, Shooter",
+      ageRating: "T",
+      gameRating: "4.3",
+      description: "Game battle royale berfokus pada tim dan kemampuan karakter unik dalam dunia sci-fi."
+    },
+    csgo: {
+      title: "Counter Strike: Global Offensive",
+      releaseDate: "21 Agustus 2012",
+      platform: "PC, Mac",
+      developer: "Valve Corporation",
+      publisher: "Valve Corporation",
+      genre: "Shooter, Tactical",
+      ageRating: "T",
+      gameRating: "4.4",
+      description: "Game tembak-tembakan yang sangat kompetitif dengan mode tim dan strategi yang ketat."
+    },
+    callofduty: {
+      title: "Call of Duty",
+      releaseDate: "2003 - Seri",
+      platform: "PC, PlayStation, Xbox",
+      developer: "Infinity Ward, Treyarch",
+      publisher: "Activision",
+      genre: "Shooter, Action",
+      ageRating: "M",
+      gameRating: "4.1",
+      description: "Seri game FPS militer dengan berbagai mode kampanye, multiplayer dan battle royale."
+    },
+    minecraft: {
+      title: "Minecraft",
+      releaseDate: "18 November 2011",
+      platform: "PC, PlayStation, Xbox, Mobile",
+      developer: "Mojang Studios",
+      publisher: "Microsoft",
+      genre: "Sandbox, Adventure",
+      ageRating: "E10+",
+      gameRating: "4.6",
+      description: "Game sandbox kreatif untuk membangun dan bertualang di dunia blok dengan elemen bertahan hidup."
+    },
+    leagueoflegends: {
+      title: "League of Legends",
+      releaseDate: "27 Oktober 2009",
+      platform: "PC",
+      developer: "Riot Games",
+      publisher: "Riot Games",
+      genre: "MOBA, Strategy",
+      ageRating: "T",
+      gameRating: "4.3",
+      description: "Game MOBA terkenal dengan komunitas besar dan e-sport global."
+    },
+    valorant: {
+      title: "Valorant",
+      releaseDate: "2 Juni 2020",
+      platform: "PC",
+      developer: "Riot Games",
+      publisher: "Riot Games",
+      genre: "Shooter, Tactical",
+      ageRating: "T",
+      gameRating: "4.1",
+      description: "Game tembak-tembakan taktis dengan kemampuan karakter unik yang mempengaruhi gameplay."
+    },
+    overwatch: {
+      title: "Overwatch",
+      releaseDate: "24 Mei 2016",
+      platform: "PC, PlayStation, Xbox, Switch",
+      developer: "Blizzard Entertainment",
+      publisher: "Blizzard Entertainment",
+      genre: "Shooter, Team-based",
+      ageRating: "T",
+      gameRating: "4.2",
+      description: "Game FPS tim dengan karakter dan gaya bermain berbeda untuk strategi dan kerja tim."
+    },
+    /* Tambahkan detail 20 game lainnya sesuai pola di atas */
+    fifa: {
+      title: "FIFA",
+      releaseDate: "Annually updated",
+      platform: "PC, PlayStation, Xbox",
+      developer: "EA Canada",
+      publisher: "Electronic Arts",
+      genre: "Sports, Simulation",
+      ageRating: "E",
+      gameRating: "4.0",
+      description: "Simulasi sepakbola terbaru dengan lisensi resmi liga dan tim dunia."
+    },
+    rocketleague: {
+      title: "Rocket League",
+      releaseDate: "7 Juli 2015",
+      platform: "PC, PlayStation, Xbox, Switch",
+      developer: "Psyonix",
+      publisher: "Psyonix",
+      genre: "Sports, Action",
+      ageRating: "E",
+      gameRating: "4.3",
+      description: "Permainan sepakbola dengan mobil yang cepat dan aksi seru."
+    },
+    skyrim: {
+      title: "Skyrim",
+      releaseDate: "11 November 2011",
+      platform: "PC, PlayStation, Xbox",
+      developer: "Bethesda Game Studios",
+      publisher: "Bethesda Softworks",
+      genre: "RPG, Adventure",
+      ageRating: "M",
+      gameRating: "4.5",
+      description: "RPG open-world epik di dunia fantasy dengan cerita dan dungeon luas."
+    },
+    cyberpunk: {
+      title: "Cyberpunk 2077",
+      releaseDate: "10 Desember 2020",
+      platform: "PC, PlayStation, Xbox",
+      developer: "CD Projekt Red",
+      publisher: "CD Projekt",
+      genre: "RPG, Action",
+      ageRating: "M",
+      gameRating: "3.9",
+      description: "RPG sci-fi dengan dunia terbuka futuristik dan cerita kompleks."
+    },
+    thewitcher: {
+      title: "The Witcher 3",
+      releaseDate: "19 Mei 2015",
+      platform: "PC, PlayStation, Xbox, Switch",
+      developer: "CD Projekt Red",
+      publisher: "CD Projekt",
+      genre: "RPG, Adventure",
+      ageRating: "M",
+      gameRating: "4.9",
+      description: "Game RPG dunia terbuka dengan cerita mendalam dan karakter kuat."
+    },
+    halo: {
+      title: "Halo",
+      releaseDate: "15 November 2001",
+      platform: "Xbox, PC",
+      developer: "Bungie, 343 Industries",
+      publisher: "Microsoft",
+      genre: "Shooter, Sci-fi",
+      ageRating: "M",
+      gameRating: "4.4",
+      description: "Game FPS sci-fi dengan cerita epik dan multiplayer kompetitif."
+    },
+    eldenring: {
+      title: "Elden Ring",
+      releaseDate: "25 Februari 2022",
+      platform: "PC, PlayStation, Xbox",
+      developer: "FromSoftware",
+      publisher: "Bandai Namco",
+      genre: "RPG, Action",
+      ageRating: "M",
+      gameRating: "4.7",
+      description: "Game action RPG dunia terbuka dengan tantangan tinggi dan eksplorasi luas."
+    },
+    rainbowsix: {
+      title: "Rainbow Six Siege",
+      releaseDate: "1 Desember 2015",
+      platform: "PC, PlayStation, Xbox",
+      developer: "Ubisoft Montreal",
+      publisher: "Ubisoft",
+      genre: "Shooter, Tactical",
+      ageRating: "M",
+      gameRating: "4.0",
+      description: "Game shooter taktis dengan fokus strategi tim dan destruksi lingkungan."
+    },
+    roblox: {
+      title: "Roblox",
+      releaseDate: "2006",
+      platform: "PC, Mobile, Xbox",
+      developer: "Roblox Corporation",
+      publisher: "Roblox Corporation",
+      genre: "Sandbox, MMO",
+      ageRating: "E10+",
+      gameRating: "4.1",
+      description: "Platform game sandbox dan sosial dengan banyak mini-game dan kreasi pemain."
+    },
+    worldofwarcraft: {
+      title: "World of Warcraft",
+      releaseDate: "23 November 2004",
+      platform: "PC",
+      developer: "Blizzard Entertainment",
+      publisher: "Blizzard Entertainment",
+      genre: "MMORPG",
+      ageRating: "T",
+      gameRating: "4.3",
+      description: "MMORPG legendaris dengan dunia luas dan komunitas aktif."
+    },
+    fallguys: {
+      title: "Fall Guys",
+      releaseDate: "4 Agustus 2020",
+      platform: "PC, PlayStation",
+      developer: "Mediatonic",
+      publisher: "Devolver Digital",
+      genre: "Party, Battle Royale",
+      ageRating: "E10+",
+      gameRating: "4.0",
+      description: "Game battle royale party penuh warna dengan tantangan lucu."
+    },
+    amongus: {
+      title: "Among Us",
+      releaseDate: "15 Juni 2018",
+      platform: "PC, Mobile, Switch",
+      developer: "Innersloth",
+      publisher: "Innersloth",
+      genre: "Party, Social Deduction",
+      ageRating: "E10+",
+      gameRating: "4.0",
+      description: "Game deduksi sosial multiplayer sederhana dan sangat populer."
+    },
+    terraria: {
+      title: "Terraria",
+      releaseDate: "16 Mei 2011",
+      platform: "PC, Console, Mobile",
+      developer: "Re-Logic",
+      publisher: "505 Games",
+      genre: "Sandbox, Adventure",
+      ageRating: "E10+",
+      gameRating: "4.4",
+      description: "Game sandbox 2D dengan eksplorasi dan crafting tiada batas."
+    },
+    jackbox: {
+      title: "Jackbox Party Pack",
+      releaseDate: "2014 - Seri",
+      platform: "PC, Console",
+      developer: "Jackbox Games",
+      publisher: "Jackbox Games",
+      genre: "Party, Trivia",
+      ageRating: "E10+",
+      gameRating: "4.2",
+      description: "Kumpulan game party interaktif untuk kumpul-kumpul dan hiburan."
+    },
+    gta5: {
+      title: "Grand Theft Auto V",
+      releaseDate: "17 September 2013",
+      platform: "PC, Console",
+      developer: "Rockstar North",
+      publisher: "Rockstar Games",
+      genre: "Action-adventure",
+      ageRating: "M",
+      gameRating: "4.8",
+      description: "Game open world crime dan petualangan dengan cerita mendalam dan multiplayer."
+    },
+    destiny2: {
+      title: "Destiny 2",
+      releaseDate: "6 September 2017",
+      platform: "PC, Console",
+      developer: "Bungie",
+      publisher: "Bungie",
+      genre: "FPS, MMO",
+      ageRating: "T",
+      gameRating: "4.1",
+      description: "Game shooter MMO dengan dunia futuristik dan gameplay kooperatif."
+    },
+    monsterhunter: {
+      title: "Monster Hunter: World",
+      releaseDate: "26 Januari 2018",
+      platform: "PC, Console",
+      developer: "Capcom",
+      publisher: "Capcom",
+      genre: "Action RPG",
+      ageRating: "T",
+      gameRating: "4.5",
+      description: "Game berburu monster dengan dunia luas dan multiplayer kooperatif."
+    },
+    guiltygear: {
+      title: "Guilty Gear",
+      releaseDate: "1998 - Seri",
+      platform: "PC, Console",
+      developer: "Arc System Works",
+      publisher: "Arc System Works",
+      genre: "Fighting",
+      ageRating: "T",
+      gameRating: "4.3",
+      description: "Game fighting dengan animasi 2D luar biasa dan gameplay kompleks."
+    },
+    fallout: {
+      title: "Fallout",
+      releaseDate: "1997 - Seri",
+      platform: "PC, Console",
+      developer: "Bethesda",
+      publisher: "Bethesda",
+      genre: "RPG, Post-apocalyptic",
+      ageRating: "M",
+      gameRating: "4.1",
+      description: "Game RPG dan petualangan di dunia pasca-apokaliptik dengan cerita seru."
+    },
+    portal: {
+      title: "Portal",
+      releaseDate: "10 Oktober 2007",
+      platform: "PC, Console",
+      developer: "Valve Corporation",
+      publisher: "Valve Corporation",
+      genre: "Puzzle, Platformer",
+      ageRating: "T",
+      gameRating: "4.6",
+      description: "Game puzzle kreatif dengan portaling dan humor cerdas."
+    },
+    rust: {
+      title: "Rust",
+      releaseDate: "8 Februari 2018",
+      platform: "PC",
+      developer: "Facepunch Studios",
+      publisher: "Facepunch Studios",
+      genre: "Survival, Multiplayer",
+      ageRating: "M",
+      gameRating: "3.9",
+      description: "Game survival multiplayer PvP dengan crafting dan bertahan hidup."
+    }
+  };
+
+  function showPopup(gameKey) {
+    const details = gameDetails[gameKey];
+    if(!details) return;
+
+    // Build popup HTML
+    const html = `
+      <div class="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popupTitle" tabindex="-1" onclick="closePopup(event)">
+        <div class="popup" onclick="event.stopPropagation()">
+          <button class="close-btn" aria-label="Close detail" onclick="closePopup(event)">
+            <span class="material-icons">close</span>
+          </button>
+          <h2 id="popupTitle">${details.title}</h2>
+          <p><strong>Tanggal Rilis:</strong> ${details.releaseDate}</p>
+          <p><strong>Platform:</strong> ${details.platform}</p>
+          <p><strong>Developer:</strong> ${details.developer}</p>
+          <p><strong>Publisher:</strong> ${details.publisher}</p>
+          <p><strong>Genre:</strong> ${details.genre}</p>
+          <p><strong>Rating Umur:</strong> ${details.ageRating}</p>
+          <p><strong>Rating Game:</strong> ${details.gameRating}</p>
+          <p class="desc">${details.description}</p>
+        </div>
+      </div>
+    `;
+    // Insert popup into DOM
+    const container = document.getElementById('popup-container');
+    container.innerHTML = html;
+    // Focus popup for accessibility
+    const popupOverlay = container.querySelector('.popup-overlay');
+    popupOverlay.focus();
+    // Disable body scroll
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePopup(e) {
+    if(e) e.stopPropagation();
+    const container = document.getElementById('popup-container');
+    container.innerHTML = '';
+    document.body.style.overflow = '';
+  }
+
+  // Accessibility close pop-up on Escape key press
+  document.addEventListener('keydown', (e) => {
+    if(e.key === "Escape") {
+      closePopup();
+    }
+  });
+</script>
+</body>
+</html>
