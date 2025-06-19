@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <title>Game Platform List - Browse</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Additional CSS Files -->
+  <link rel="stylesheet" href="assets/css/fontawesome.css">
+  <link rel="stylesheet" href="assets/css/templatemo-cyborg-gaming.css">
+  <link rel="stylesheet" href="assets/css/owl.css">
+  <link rel="stylesheet" href="assets/css/animate.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+  <style>
+    /* Standard Image Sizing */
+    img {
+      max-width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    /* Game Cards */
+    .item img,
+    .thumb img,
+    .templatemo-item {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    /* Filter Controls */
+    .filter-controls {
+      background: #27292a;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .filter-group {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .filter-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #ec6090;
+      font-size: 14px;
+    }
+
+    .filter-group select,
+    .filter-group input {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 5px;
+      border: 1px solid #444;
+      background: #1f2122;
+      color: white;
+    }
+
+    .filter-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* Filter Buttons */
+    .filter-button {
+      padding: 8px 20px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .filter-button.apply {
+      background-color: #ec6090;
+      color: white;
+    }
+
+    .filter-button.reset {
+      background-color: #444;
+      color: white;
+    }
+
+    .filter-button.apply:hover {
+      background-color: #d34f7c;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(236, 96, 144, 0.3);
+    }
+
+    .filter-button.reset:hover {
+      background-color: #555;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* No results message */
+    .no-results {
+      text-align: center;
+      padding: 50px;
+      color: #ccc;
+      font-size: 18px;
+      display: none;
+    }
+
+    /* Popup Styles */
+    .game-popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .game-popup {
+      background-color: #1f2122;
+      border-radius: 12px;
+      padding: 20px;
+      width: 80%;
+      max-width: 900px;
+      color: #fff;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      position: relative;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+
+    .game-popup .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #fff;
+      transition: color 0.3s ease;
+    }
+
+    .game-popup .close-btn:hover {
+      color: #ec6090;
+    }
+
+    .popup-content {
+      display: flex;
+      gap: 20px;
+    }
+
+    .popup-content img {
+      width: 300px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .popup-text {
+      flex: 1;
+    }
+
+    .popup-text h3 {
+      margin-bottom: 10px;
+      font-size: 24px;
+      color: #ec6090;
+    }
+
+    .popup-text p {
+      font-size: 16px;
+      color: #ccc;
+      margin-bottom: 8px;
+    }
+
+    .popup-text .info-label {
+      color: #ec6090;
+      font-weight: 500;
+    }
+
+    /* Navbar Hover Effects */
+    .main-nav .nav li a {
+      transition: color 0.3s ease;
+    }
+
+    .main-nav .nav li a:hover,
+    .main-nav .nav li a.active {
+      color: #ec6090 !important;
+    }
+
+    /* Game Item Hover Effects */
+    .item {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(236, 96, 144, 0.3);
+    }
+
+    .item:hover h4 {
+      color: #ec6090;
+    }
+
+    .item:hover img {
+      filter: brightness(1.1);
+      box-shadow: 0 0 15px rgba(236, 96, 144, 0.5);
+    }
+
+    .item h4 {
+      transition: color 0.3s ease;
+    }
+
+    /* Search Icon Hover */
+    .search-input i:hover {
+      color: #ec6090;
+      cursor: pointer;
+    }
+
+    /* Fixed Header */
+    .header-area {
+      position: fixed !important;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: #1f2122;
+      padding: 30px 0;
+      margin-top: 50px;
+    }
+
+    .footer-content {
+      color: #fff;
+    }
+
+    .footer-content h4 {
+      color: #ec6090;
+      margin-bottom: 20px;
+    }
+
+    .footer-content ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-content ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-content ul li a {
+      color: #ccc;
+      transition: color 0.3s ease;
+    }
+
+    .footer-content ul li a:hover {
+      color: #ec6090;
+      text-decoration: none;
+    }
+
+    .copyright {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #444;
+      color: #ccc;
+      font-size: 14px;
+    }
+
+    /* Popup Image Hover Effect */
+    .popup-content img:hover {
+      box-shadow: 0 0 20px rgba(236, 96, 144, 0.7);
+      transform: scale(1.02);
+    }
+
+    @media (max-width: 768px) {
+      .popup-content {
+        flex-direction: column;
+      }
+
+      .popup-content img {
+        width: 100%;
+        height: 200px;
+        margin-bottom: 20px;
+      }
+
+      .filter-row {
+        flex-direction: column;
+      }
+      
+      .header-area {
+        position: relative !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+  <header class="header-area header-sticky">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav class="main-nav">
+            <!-- ***** Logo Start ***** -->
+            <a href="index.html" class="logo">
+              <img src="assets/images/logo.png" alt="">
+            </a>
+            <!-- ***** Logo End ***** -->
+            <!-- ***** Search End ***** -->
+            <div class="search-input">
+              <form id="search" action="#">
+                <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword"
+                  onkeypress="handle" />
+                <i class="fa fa-search"></i>
+              </form>
+            </div>
+            <!-- ***** Search End ***** -->
+            <!-- ***** Menu Start ***** -->
+            <ul class="nav">
+              <li><a href="index.html" class="active">Home</a></li>
+              <li><a href="browse.html">Browse</a></li>
+              <li><a href="details.html">Details</a></li>
+              <li><a href="streams.html">Streams</a></li>
+              <li><a href="profile.html">Profile <img src="assets/images/profile-header.jpg" alt=""></a></li>
+            </ul>
+            <a class='menu-trigger'>
+              <span>Menu</span>
+            </a>
+            <!-- ***** Menu End ***** -->
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container" style="margin-top: 100px;">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="page-content">
+
+          <!-- Filter Controls -->
+          <div class="filter-controls">
+            <div class="filter-row">
+              <div class="filter-group">
+                <label for="searchFilter">Search</label>
+                <input type="text" id="searchFilter" placeholder="Game name, genre, etc.">
+              </div>
+              <div class="filter-group">
+                <label for="genreFilter">Genre</label>
+                <select id="genreFilter">
+                  <option value="">All Genres</option>
+                  <option value="Action">Action</option>
+                  <option value="Adventure">Adventure</option>
+                  <option value="RPG">RPG</option>
+                  <option value="FPS">FPS</option>
+                  <option value="MOBA">MOBA</option>
+                  <option value="Open World">Open World</option>
+                  <option value="Strategy">Strategy</option>
+                  <option value="Battle Royale">Battle Royale</option>
+                  <option value="Sports">Sports</option>
+                  <option value="Racing">Racing</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label for="platformFilter">Platform</label>
+                <select id="platformFilter">
+                  <option value="">All Platforms</option>
+                  <option value="PC">PC</option>
+                  <option value="Mobile">Mobile</option>
+                  <option value="PlayStation">PlayStation</option>
+                  <option value="Xbox">Xbox</option>
+                  <option value="Switch">Switch</option>
+                </select>
+              </div>
+            </div>
+            <div class="filter-row">
+              <div class="filter-group">
+                <label for="ratingFilter">Minimum Rating</label>
+                <select id="ratingFilter">
+                  <option value="0">Any Rating</option>
+                  <option value="3">3+ Stars</option>
+                  <option value="4">4+ Stars</option>
+                  <option value="4.5">4.5+ Stars</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label for="yearFilter">Release Year</label>
+                <select id="yearFilter">
+                  <option value="">Any Year</option>
+                  <option value="2025">2025</option>
+                  <option value="2024">2024</option>
+                  <option value="2023">2023</option>
+                  <option value="2022">2022</option>
+                  <option value="2021">2021</option>
+                  <option value="2020">2020</option>
+                  <option value="2019">2019 and earlier</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label for="sortBy">Sort By</label>
+                <select id="sortBy">
+                  <option value="name-asc">Name (A-Z)</option>
+                  <option value="name-desc">Name (Z-A)</option>
+                  <option value="rating-desc">Rating (High-Low)</option>
+                  <option value="rating-asc">Rating (Low-High)</option>
+                  <option value="year-desc">Newest First</option>
+                  <option value="year-asc">Oldest First</option>
+                </select>
+              </div>
+            </div>
+            <div class="filter-actions">
+              <button id="resetFilters" class="filter-button reset">Reset Filters</button>
+              <button id="applyFilters" class="filter-button apply">Apply Filters</button>
+            </div>
+          </div>
+
+          <!-- No results message -->
+          <div class="no-results">
+            <i class="fa fa-gamepad fa-3x" style="margin-bottom: 15px;"></i>
+            <h4>No games found matching your criteria</h4>
+            <p>Try adjusting your filters or search terms</p>
+          </div>
+
+          <!-- Games Grid -->
+          <div class="most-popular">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="heading-section">
+                  <h4><em>Browse</em> All Games</h4>
+                </div>
+                <div class="row" id="gamesContainer">
+                  <!-- Game 1 -->
+                  <div class="col-lg-3 col-sm-6" data-name="Fortnite" data-genre="Battle Royale, Action, Multiplayer"
+                    data-platform="PC, PlayStation, Xbox, Switch, Mobile" data-rating="4.2" data-year="2017">
+                    <div class="item" onclick="openPopup('Fortnite')">
+                      <img src="assets/images/game-01.jpg" alt="">
+                      <h4>Fortnite<br><span>PC, PlayStation, Xbox, Switch, Mobile</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.2</li>
+                        <li><i class="fa fa-download"></i> 2.2M</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 2 -->
+                  <div class="col-lg-3 col-sm-6" data-name="CS:GO" data-genre="FPS, Multiplayer" data-platform="PC"
+                    data-rating="4.4" data-year="2012">
+                    <div class="item" onclick="openPopup('CS:GO')">
+                      <img src="assets/images/game-02.jpg" alt="">
+                      <h4>CS:GO<br><span>PC</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.4</li>
+                        <li><i class="fa fa-download"></i> 1.8M</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 3 -->
+                  <div class="col-lg-3 col-sm-6" data-name="PUBG" data-genre="Battle Royale, FPS"
+                    data-platform="PC, PlayStation, Xbox, Mobile" data-rating="4.1" data-year="2017">
+                    <div class="item" onclick="openPopup('PUBG')">
+                      <img src="assets/images/game-03.jpg" alt="">
+                      <h4>PUBG<br><span>PC, PlayStation, Xbox, Mobile</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.1</li>
+                        <li><i class="fa fa-download"></i> 1.5M</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 4 -->
+                  <div class="col-lg-3 col-sm-6" data-name="Assassin's Creed IV"
+                    data-genre="Action, Adventure, Open World" data-platform="PC, PlayStation, Xbox" data-rating="4.6"
+                    data-year="2013">
+                    <div class="item" onclick="openPopup('Assassin\'s Creed IV')">
+                      <img src="assets/images/AC2.png" alt="">
+                      <h4>Assassin's Creed IV<br><span>PC, PlayStation, Xbox</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.6</li>
+                        <li><i class="fa fa-download"></i> 2.5M</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 5 -->
+                  <div class="col-lg-3 col-sm-6" data-name="Cyberpunk 2077" data-genre="RPG, Open World, Action"
+                    data-platform="PC, PlayStation, Xbox" data-rating="4.3" data-year="2020">
+                    <div class="item" onclick="openPopup('Cyberpunk 2077')">
+                      <img src="assets/images/anakpunk.jpg" alt="">
+                      <h4>Cyberpunk 2077<br><span>PC, PlayStation, Xbox</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.3</li>
+                        <li><i class="fa fa-download"></i> 2.3M</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 6 -->
+                  <div class="col-lg-3 col-sm-6" data-name="Avatar: FoP" data-genre="Adventure, Open World"
+                    data-platform="PC, PlayStation, Xbox" data-rating="4.5" data-year="2023">
+                    <div class="item" onclick="openPopup('Avatar: FoP')">
+                      <img src="assets/images/krisna.jpg" alt="">
+                      <h4>Avatar: FoP<br><span>PC, PlayStation, Xbox</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.5</li>
+                        <li><i class="fa fa-download"></i> 2.1M</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 7 -->
+                  <div class="col-lg-3 col-sm-6" data-name="Hogwarts Legacy" data-genre="RPG, Adventure, Open World"
+                    data-platform="PC, PlayStation, Xbox" data-rating="4.7" data-year="2023">
+                    <div class="item" onclick="openPopup('Hogwarts Legacy')">
+                      <img src="assets/images/hg4.jpeg" alt="">
+                      <h4>Hogwarts Legacy<br><span>PC, PlayStation, Xbox</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.7</li>
+                        <li><i class="fa fa-download"></i> 2.4M</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 8 -->
+                  <div class="col-lg-3 col-sm-6" data-name="Elden Ring" data-genre="RPG, Action, Adventure"
+                    data-platform="PC, PlayStation, Xbox" data-rating="4.9" data-year="2022">
+                    <div class="item" onclick="openPopup('Elden Ring')">
+                      <img src="assets/images/ER4.jpeg" alt="">
+                      <h4>Elden Ring<br><span>PC, PlayStation, Xbox</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.9</li>
+                        <li><i class="fa fa-download"></i> 2.6M</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 9 -->
+                  <div class="col-lg-3 col-sm-6" data-name="DOOM Eternal" data-genre="FPS, Action"
+                    data-platform="PC, PlayStation, Xbox" data-rating="4.5" data-year="2020">
+                    <div class="item" onclick="openPopup('DOOM Eternal')">
+                      <img src="assets/images/Doom.jpeg" alt="">
+                      <h4>DOOM Eternal<br><span>PC, PlayStation, Xbox</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.5</li>
+                        <li><i class="fa fa-download"></i> 1.9M</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 10 -->
+                  <div class="col-lg-3 col-sm-6" data-name="GTA V" data-genre="Action, Adventure, Open World"
+                    data-platform="PC, PlayStation, Xbox" data-rating="4.6" data-year="2013">
+                    <div class="item" onclick="openPopup('GTA V')">
+                      <img src="assets/images/grand-theft-auto-v.jpg" alt="">
+                      <h4>GTA V<br><span>PC, PlayStation, Xbox</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.6</li>
+                        <li><i class="fa fa-download"></i> 2.5M</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 11 -->
+                  <div class="col-lg-3 col-sm-6" data-name="Wuthering Waves" data-genre="Action, RPG, Open World"
+                    data-platform="PC, Mobile" data-rating="4.7" data-year="2024">
+                    <div class="item" onclick="openPopup('Wuthering Waves')">
+                      <img src="assets/images/wuthering-waves-3840x2160-19530.jpg" alt="">
+                      <h4>Wuthering Waves<br><span>PC, Mobile</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.7</li>
+                        <li><i class="fa fa-download"></i> 1.5M</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 12 -->
+                  <div class="col-lg-3 col-sm-6" data-name="Zenless Zone Zero" data-genre="Action, RPG"
+                    data-platform="PC, Mobile" data-rating="4.4" data-year="2024">
+                    <div class="item" onclick="openPopup('Zenless Zone Zero')">
+                      <img src="assets/images/Zenless Zone Zero.jpeg" alt="">
+                      <h4>Zenless Zone Zero<br><span>PC, Mobile</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.4</li>
+                        <li><i class="fa fa-download"></i> 1.3M</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 13 -->
+                  <div class="col-lg-3 col-sm-6" data-name="Honor of Kings" data-genre="MOBA" data-platform="Mobile"
+                    data-rating="4.5" data-year="2015">
+                    <div class="item" onclick="openPopup('Honor of Kings')">
+                      <img src="assets/images/Arli.jpg" alt="">
+                      <h4>Honor of Kings<br><span>Mobile</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.5</li>
+                        <li><i class="fa fa-download"></i> 1.2M</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 14 -->
+                  <div class="col-lg-3 col-sm-6" data-name="COD: Black Ops" data-genre="FPS"
+                    data-platform="PC, PlayStation, Xbox" data-rating="4.3" data-year="2010">
+                    <div class="item" onclick="openPopup('COD: Black Ops')">
+                      <img src="assets/images/COD2.jpg" alt="">
+                      <h4>COD: Black Ops<br><span>PC, PlayStation, Xbox</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.3</li>
+                        <li><i class="fa fa-download"></i> 1.4M</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 15 -->
+                  <div class="col-lg-3 col-sm-6" data-name="God of War" data-genre="Action, Adventure"
+                    data-platform="PC, PlayStation, Xbox" data-rating="4.9" data-year="2018">
+                    <div class="item" onclick="openPopup('God of War')">
+                      <img src="assets/images/kratos3.jpg" alt="">
+                      <h4>God of War<br><span>PC, PlayStation, Xbox</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.9</li>
+                        <li><i class="fa fa-download"></i> 2.2M</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 16 -->
+                  <div class="col-lg-3 col-sm-6" data-name="Counter Strike 2" data-genre="FPS" data-platform="PC"
+                    data-rating="4.4" data-year="2023">
+                    <div class="item" onclick="openPopup('Counter Strike 2')">
+                      <img src="assets/images/cs2.png" alt="">
+                      <h4>Counter Strike 2<br><span>PC</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.4</li>
+                        <li><i class="fa fa-download"></i> 1M</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 17 -->
+                  <div class="col-lg-3 col-sm-6" data-name="Mobile Legends" data-genre="MOBA" data-platform="Mobile"
+                    data-rating="4.1" data-year="2016">
+                    <div class="item" onclick="openPopup('Mobile Legends')">
+                      <img src="assets/images/mobile-legends-bang-3840x2160-14183.jpg" alt="">
+                      <h4>Mobile Legends<br><span>Mobile</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.1</li>
+                        <li><i class="fa fa-download"></i> 900k</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 18 -->
+                  <div class="col-lg-3 col-sm-6" data-name="Blue Archive" data-genre="RPG, Strategy"
+                    data-platform="PC, Mobile" data-rating="4.2" data-year="2021">
+                    <div class="item" onclick="openPopup('Blue Archive')">
+                      <img src="assets/images/BA.jpeg" alt="">
+                      <h4>Blue Archive<br><span>PC, Mobile</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.2</li>
+                        <li><i class="fa fa-download"></i> 2.3M</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 19 -->
+                  <div class="col-lg-3 col-sm-6" data-name="Genshin Impact" data-genre="Action, RPG, Open World"
+                    data-platform="PC, PlayStation, Mobile" data-rating="4.1" data-year="2020">
+                    <div class="item" onclick="openPopup('Genshin Impact')">
+                      <img src="assets/images/bensin.jpg" alt="">
+                      <h4>Genshin Impact<br><span>PC, PlayStation, Mobile</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.1</li>
+                        <li><i class="fa fa-download"></i> 2.3M</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- Game 20 -->
+                  <div class="col-lg-3 col-sm-6" data-name="Among Us" data-genre="Strategy, Social"
+                    data-platform="PC, PlayStation, Mobile" data-rating="4.3" data-year="2018">
+                    <div class="item" onclick="openPopup('Among Us')">
+                      <img src="assets/images/among-us-game.png" alt="">
+                      <h4>Among Us<br><span>PC, PlayStation, Mobile</span></h4>
+                      <ul>
+                        <li><i class="fa fa-star"></i> 4.3</li>
+                        <li><i class="fa fa-download"></i> 2.3M</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup Overlay -->
+  <div id="gamePopup" class="game-popup-overlay">
+    <div class="game-popup">
+      <span class="close-btn" onclick="closePopup()">&times;</span>
+      <div class="popup-content">
+        <img id="popupImage" src="" alt="Game Image">
+        <div class="popup-text">
+          <h3 id="popupTitle">Game Title</h3>
+          <p><span class="info-label">Tanggal Rilis:</span> <span id="popupReleaseDate">Unknown</span></p>
+          <p><span class="info-label">Platform:</span> <span id="popupPlatform">Unknown</span></p>
+          <p><span class="info-label">Developer:</span> <span id="popupDeveloper">Unknown</span></p>
+          <p><span class="info-label">Publisher:</span> <span id="popupPublisher">Unknown</span></p>
+          <p><span class="info-label">Genre:</span> <span id="popupGenre">Unknown</span></p>
+          <p><span class="info-label">Rating Umur:</span> <span id="popupAgeRating">Unknown</span></p>
+          <p><span class="info-label">Rating Game:</span> <span id="popupGameRating">Unknown</span></p>
+          <p id="popupDesc">Game description will appear here.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="footer-content">
+            <div class="row">
+              <div class="col-lg-4">
+                <h4>About Us</h4>
+                <p>Game Platform List is your ultimate destination for discovering and exploring the best games across all platforms.</p>
+              </div>
+              <div class="col-lg-4">
+                <h4>Quick Links</h4>
+                <ul>
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="browse.html">Browse Games</a></li>
+                  <li><a href="streams.html">Streams</a></li>
+                  <li><a href="profile.html">Profile</a></li>
+                </ul>
+              </div>
+              <div class="col-lg-4">
+                <h4>Contact Us</h4>
+                <p>Email: info@gameplatformlist.com<br>
+                Phone: (123) 456-7890</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="copyright">
+                  <p>Copyright © 2036 <a href="#">Game Platform List</a> Company. All rights reserved.
+                    <br>Design: <a href="https://templatemo.com" target="_blank" title="free CSS templates">TemplateMo</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/js/isotope.min.js"></script>
+  <script src="assets/js/owl-carousel.js"></script>
+  <script src="assets/js/tabs.js"></script>
+  <script src="assets/js/popup.js"></script>
+  <script src="assets/js/custom.js"></script>
+
+  <script>
+    // Extended game data with all required fields
+    const gameData = {
+      'Fortnite': {
+        img: 'assets/images/game-01.jpg',
+        releaseDate: '25 Juli 2017',
+        platform: 'PC, PlayStation, Xbox, Switch, Mobile',
+        developer: 'Epic Games',
+        publisher: 'Epic Games',
+        genre: 'Battle Royale, Action, Multiplayer',
+        ageRating: 'T',
+        gameRating: '4.2',
+        desc: 'Game battle royale penuh warna dengan elemen bangunan dan mode kreatif, populer di kalangan gamer muda dan komunitas global.'
+      },
+      'CS:GO': {
+        img: 'assets/images/game-02.jpg',
+        releaseDate: '21 Agustus 2012',
+        platform: 'PC',
+        developer: 'Valve, Hidden Path Entertainment',
+        publisher: 'Valve',
+        genre: 'FPS, Multiplayer',
+        ageRating: 'M',
+        gameRating: '4.4',
+        desc: 'First-person shooter kompetitif dengan gameplay taktis dan ekonomi senjata yang unik, menjadi salah satu game esports paling populer.'
+      },
+      'PUBG': {
+        img: 'assets/images/game-03.jpg',
+        releaseDate: '20 Desember 2017',
+        platform: 'PC, PlayStation, Xbox, Mobile',
+        developer: 'PUBG Corporation',
+        publisher: 'PUBG Corporation',
+        genre: 'Battle Royale, FPS',
+        ageRating: 'M',
+        gameRating: '4.1',
+        desc: 'Pelopor genre battle royale yang mempopulerkan format 100 pemain bertarung hingga menjadi yang terakhir bertahan.'
+      },
+      'Assassin\'s Creed IV': {
+        img: 'assets/images/AC2.png',
+        releaseDate: '29 Oktober 2013',
+        platform: 'PC, PlayStation, Xbox',
+        developer: 'Ubisoft Montreal',
+        publisher: 'Ubisoft',
+        genre: 'Action, Adventure, Open World',
+        ageRating: 'M',
+        gameRating: '4.6',
+        desc: 'Petualangan bajak laut di Karibia dengan gameplay siluman dan pertarungan kapal yang epik dalam seri Assassin\'s Creed.'
+      },
+      'Cyberpunk 2077': {
+        img: 'assets/images/anakpunk.jpg',
+        releaseDate: '10 Desember 2020',
+        platform: 'PC, PlayStation, Xbox',
+        developer: 'CD Projekt Red',
+        publisher: 'CD Projekt',
+        genre: 'RPG, Open World, Action',
+        ageRating: 'M',
+        gameRating: '4.3',
+        desc: 'RPG futuristik dengan dunia Night City yang imersif, meskipun mengalami masalah teknis saat peluncuran.'
+      },
+      'Avatar: FoP': {
+        img: 'assets/images/krisna.jpg',
+        releaseDate: '7 Desember 2023',
+        platform: 'PC, PlayStation, Xbox',
+        developer: 'Massive Entertainment',
+        publisher: 'Ubisoft',
+        genre: 'Adventure, Open World',
+        ageRating: 'T',
+        gameRating: '4.5',
+        desc: 'Game petualangan di dunia Pandora dari film Avatar, dengan gameplay eksplorasi dan pertarungan yang memukau secara visual.'
+      },
+      'Hogwarts Legacy': {
+        img: 'assets/images/hg4.jpeg',
+        releaseDate: '10 Februari 2023',
+        platform: 'PC, PlayStation, Xbox',
+        developer: 'Avalanche Software',
+        publisher: 'Warner Bros. Games',
+        genre: 'RPG, Adventure, Open World',
+        ageRating: 'T',
+        gameRating: '4.7',
+        desc: 'RPG aksi yang memungkinkan pemain menjadi siswa Hogwarts dan menjelajahi dunia sihir yang luas.'
+      },
+      'Elden Ring': {
+        img: 'assets/images/ER4.jpeg',
+        releaseDate: '25 Februari 2022',
+        platform: 'PC, PlayStation, Xbox',
+        developer: 'FromSoftware',
+        publisher: 'Bandai Namco Entertainment',
+        genre: 'RPG, Action, Adventure',
+        ageRating: 'M',
+        gameRating: '4.9',
+        desc: 'RPG aksi dunia terbuka yang sulit namun memuaskan, dengan dunia yang dirancang bersama oleh Hidetaka Miyazaki dan George R.R. Martin.'
+      },
+      'DOOM Eternal': {
+        img: 'assets/images/Doom.jpeg',
+        releaseDate: '20 Maret 2020',
+        platform: 'PC, PlayStation, Xbox',
+        developer: 'id Software',
+        publisher: 'Bethesda Softworks',
+        genre: 'FPS, Action',
+        ageRating: 'M',
+        gameRating: '4.5',
+        desc: 'FPS cepat dengan gameplay ganas melawan iblis, menyempurnakan formula seri DOOM modern.'
+      },
+      'GTA V': {
+        img: 'assets/images/grand-theft-auto-v.jpg',
+        releaseDate: '17 September 2013',
+        platform: 'PC, PlayStation, Xbox',
+        developer: 'Rockstar North',
+        publisher: 'Rockstar Games',
+        genre: 'Action, Adventure, Open World',
+        ageRating: 'M',
+        gameRating: '4.6',
+        desc: 'Game aksi petualangan open-world yang mengajak pemain menjelajahi kota Los Santos, menyelesaikan misi, dan menikmati cerita penuh aksi.'
+      },
+      'Wuthering Waves': {
+        img: 'assets/images/wuwa5.jpg',
+        releaseDate: '22 Mei 2024',
+        platform: 'PC, Mobile',
+        developer: 'Kuro Games',
+        publisher: 'Kuro Games',
+        genre: 'Action, RPG, Open World',
+        ageRating: '12+',
+        gameRating: '4.7',
+        desc: 'Game action RPG open world bergaya anime yang mengajak pemain menjelajahi dunia pasca apokaliptik Solaris 3 dengan pertarungan dinamis dan narasi mendalam.'
+      },
+      'Zenless Zone Zero': {
+        img: 'assets/images/zzz2.jpg',
+        releaseDate: '4 Juli 2024',
+        platform: 'PC, Mobile',
+        developer: 'HoYoverse',
+        publisher: 'HoYoverse',
+        genre: 'Action, RPG',
+        ageRating: '12+',
+        gameRating: '4.4',
+        desc: 'Game action RPG bergaya urban fantasy yang menghadirkan pertarungan cepat, dunia futuristik, dan visual bergaya anime.'
+      },
+      'Honor of Kings': {
+        img: 'assets/images/Arli.jpg',
+        releaseDate: '26 November 2015',
+        platform: 'Mobile',
+        developer: 'TiMi Studio Group',
+        publisher: 'Tencent Games',
+        genre: 'MOBA',
+        ageRating: '12+',
+        gameRating: '4.5',
+        desc: 'Game MOBA mobile yang menawarkan pertarungan tim 5v5 cepat dengan berbagai hero unik, populer di Asia.'
+      },
+      'COD: Black Ops': {
+        img: 'assets/images/COD2.jpg',
+        releaseDate: '9 November 2010',
+        platform: 'PC, PlayStation, Xbox',
+        developer: 'Treyarch',
+        publisher: 'Activision',
+        genre: 'FPS',
+        ageRating: 'M',
+        gameRating: '4.3',
+        desc: 'Game first-person shooter yang menampilkan kisah intens berlatar Perang Dingin serta mode multiplayer kompetitif.'
+      },
+      'God of War': {
+        img: 'assets/images/kratos3.jpg',
+        releaseDate: '20 April 2018',
+        platform: 'PC, PlayStation, Xbox',
+        developer: 'Santa Monica Studio',
+        publisher: 'Sony Interactive Entertainment',
+        genre: 'Action, Adventure',
+        ageRating: 'M',
+        gameRating: '4.9',
+        desc: 'Game action-adventure yang mengisahkan petualangan Kratos dalam mitologi Nordik dengan cerita emosional dan pertarungan brutal.'
+      },
+      'Counter Strike 2': {
+        img: 'assets/images/cs2-3.jpg',
+        releaseDate: '27 September 2023',
+        platform: 'PC',
+        developer: 'Valve',
+        publisher: 'Valve',
+        genre: 'FPS',
+        ageRating: 'M',
+        gameRating: '4.4',
+        desc: 'Game FPS kompetitif yang menghadirkan peningkatan grafis dan mekanik dari seri sebelumnya dengan gameplay taktis berbasis tim.'
+      },
+      'Mobile Legends': {
+        img: 'assets/images/lesley.jpg',
+        releaseDate: '11 Juli 2016',
+        platform: 'Mobile',
+        developer: 'Moonton',
+        publisher: 'Moonton',
+        genre: 'MOBA',
+        ageRating: '12+',
+        gameRating: '4.1',
+        desc: 'Game MOBA mobile yang menawarkan pertarungan 5v5 cepat, berbagai hero unik, dan komunitas aktif di Asia Tenggara.'
+      },
+      'Blue Archive': {
+        img: 'assets/images/shiroko.png',
+        releaseDate: '4 Februari 2021',
+        platform: 'PC, Mobile',
+        developer: 'Nexon',
+        publisher: 'Nexon',
+        genre: 'RPG, Strategy',
+        ageRating: '12+',
+        gameRating: '4.2',
+        desc: 'Game RPG taktis bergaya anime yang menggabungkan pertarungan strategi real-time dengan cerita kehidupan sekolah yang menarik.'
+      },
+      'Genshin Impact': {
+        img: 'assets/images/shogun.png',
+        releaseDate: '28 September 2020',
+        platform: 'PC, PlayStation, Mobile',
+        developer: 'HoYoverse',
+        publisher: 'HoYoverse',
+        genre: 'Action, RPG, Open World',
+        ageRating: 'T',
+        gameRating: '4.1',
+        desc: 'Game action RPG open-world yang memungkinkan pemain menjelajahi dunia Teyvat dengan pertarungan elemen dan cerita mendalam.'
+      },
+      'Among Us': {
+        img: 'assets/images/among-us-game.png',
+        releaseDate: '15 Juni 2018',
+        platform: 'PC, PlayStation, Mobile',
+        developer: 'Innersloth',
+        publisher: 'Innersloth',
+        genre: 'Strategy, Social',
+        ageRating: '10+',
+        gameRating: '4.3',
+        desc: 'Game multiplayer sosial yang mengajak pemain menyelesaikan misi atau menyabotase sebagai impostor di pesawat luar angkasa.'
+      }
+    };
+
+    // Search and filter functionality
+    document.addEventListener('DOMContentLoaded', function () {
+      // Get all game items
+      const gameItems = document.querySelectorAll('#gamesContainer > div');
+      const noResultsMessage = document.querySelector('.no-results');
+
+      // Function to filter games
+      function filterGames() {
+        const searchText = document.getElementById('searchFilter').value.toLowerCase();
+        const genreFilter = document.getElementById('genreFilter').value;
+        const platformFilter = document.getElementById('platformFilter').value;
+        const minRating = parseFloat(document.getElementById('ratingFilter').value);
+        const yearFilter = document.getElementById('yearFilter').value;
+        const sortBy = document.getElementById('sortBy').value;
+
+        let visibleCount = 0;
+
+        // Filter games
+        gameItems.forEach(item => {
+          const name = item.getAttribute('data-name').toLowerCase();
+          const genre = item.getAttribute('data-genre');
+          const platform = item.getAttribute('data-platform');
+          const rating = parseFloat(item.getAttribute('data-rating'));
+          const year = item.getAttribute('data-year');
+
+          const matchesSearch = name.includes(searchText) ||
+            genre.toLowerCase().includes(searchText);
+          const matchesGenre = !genreFilter || genre.includes(genreFilter);
+          const matchesPlatform = !platformFilter || platform.includes(platformFilter);
+          const matchesRating = !minRating || rating >= minRating;
+          const matchesYear = !yearFilter ||
+            (yearFilter === '2019' ? year <= 2019 : year === yearFilter);
+
+          if (matchesSearch && matchesGenre && matchesPlatform && matchesRating && matchesYear) {
+            item.style.display = 'block';
+            visibleCount++;
+          } else {
+            item.style.display = 'none';
+          }
+        });
+
+        // Show/hide no results message
+        if (visibleCount === 0) {
+          noResultsMessage.style.display = 'block';
+        } else {
+          noResultsMessage.style.display = 'none';
+        }
+
+        // Sort games
+        sortGames(sortBy);
+      }
+
+      // Function to sort games
+      function sortGames(sortBy) {
+        const container = document.getElementById('gamesContainer');
+        const items = Array.from(container.children).filter(item => item.style.display !== 'none');
+
+        items.sort((a, b) => {
+          const aName = a.getAttribute('data-name').toLowerCase();
+          const bName = b.getAttribute('data-name').toLowerCase();
+          const aRating = parseFloat(a.getAttribute('data-rating'));
+          const bRating = parseFloat(b.getAttribute('data-rating'));
+          const aYear = parseInt(a.getAttribute('data-year'));
+          const bYear = parseInt(b.getAttribute('data-year'));
+
+          switch (sortBy) {
+            case 'name-asc':
+              return aName.localeCompare(bName);
+            case 'name-desc':
+              return bName.localeCompare(aName);
+            case 'rating-desc':
+              return bRating - aRating;
+            case 'rating-asc':
+              return aRating - bRating;
+            case 'year-desc':
+              return bYear - aYear;
+            case 'year-asc':
+              return aYear - bYear;
+            default:
+              return 0;
+          }
+        });
+
+        // Re-append sorted items
+        items.forEach(item => container.appendChild(item));
+      }
+
+      // Apply filters button
+      document.getElementById('applyFilters').addEventListener('click', filterGames);
+
+      // Reset filters button
+      document.getElementById('resetFilters').addEventListener('click', function () {
+        document.getElementById('searchFilter').value = '';
+        document.getElementById('genreFilter').value = '';
+        document.getElementById('platformFilter').value = '';
+        document.getElementById('ratingFilter').value = '0';
+        document.getElementById('yearFilter').value = '';
+        document.getElementById('sortBy').value = 'name-asc';
+        filterGames();
+      });
+
+      // Search input event (debounced)
+      let searchTimeout;
+      document.getElementById('searchFilter').addEventListener('input', function () {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(filterGames, 300);
+      });
+
+      // Other filter change events
+      document.getElementById('genreFilter').addEventListener('change', filterGames);
+      document.getElementById('platformFilter').addEventListener('change', filterGames);
+      document.getElementById('ratingFilter').addEventListener('change', filterGames);
+      document.getElementById('yearFilter').addEventListener('change', filterGames);
+      document.getElementById('sortBy').addEventListener('change', filterGames);
+
+       // Header search functionality
+      const headerSearchInput = document.querySelector('.search-input input');
+      const headerSearchIcon = document.querySelector('.search-input i');
+      
+      headerSearchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          document.getElementById('searchText').value = headerSearchInput.value;
+          filterGames();
+          // Scroll to filters
+          document.querySelector('.filter-toggle').scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+      
+      headerSearchIcon.addEventListener('click', function() {
+        document.getElementById('searchText').value = headerSearchInput.value;
+        filterGames();
+        // Scroll to filters
+        document.querySelector('.filter-toggle').scrollIntoView({ behavior: 'smooth' });
+      });
+
+      // Initialize with all games visible
+      filterGames();
+    });
+
+    // Popup functions
+    function openPopup(title) {
+      const data = gameData[title];
+      if (data) {
+        document.getElementById('popupTitle').textContent = title;
+        document.getElementById('popupImage').src = data.img;
+        document.getElementById('popupImage').alt = title + ' cover image';
+        document.getElementById('popupReleaseDate').textContent = data.releaseDate;
+        document.getElementById('popupPlatform').textContent = data.platform;
+        document.getElementById('popupDeveloper').textContent = data.developer;
+        document.getElementById('popupPublisher').textContent = data.publisher;
+        document.getElementById('popupGenre').textContent = data.genre;
+        document.getElementById('popupAgeRating').textContent = data.ageRating;
+        document.getElementById('popupGameRating').textContent = data.gameRating;
+        document.getElementById('popupDesc').textContent = data.desc;
+
+        document.getElementById('gamePopup').style.display = 'flex';
+      }
+    }
+
+    function closePopup() {
+      document.getElementById('gamePopup').style.display = 'none';
+    }
+  </script>
+</body>
+
+</html>
