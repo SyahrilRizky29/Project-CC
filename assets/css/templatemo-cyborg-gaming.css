@@ -923,8 +923,22 @@ Gaming Library Style
 }
 
 .gaming-library .item ul li img {
-  margin-top: -30px;
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-left: 15px; /* Geser ke kanan */
+  margin-top: 0;
+  display: block;
 }
+
+.gaming-library .item ul {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  gap: 15px;
+}
+
 
 .gaming-library .item ul li {
   display: inline-block;
@@ -933,6 +947,10 @@ Gaming Library Style
 
 .gaming-library .item ul li:first-child {
   width: 110px;
+  align-items: center;
+  object-fit: cover;
+  padding-left: 15px; /* geser gambar dari tepi kiri */
+  padding-right: 10px; /* kasih jarak ke teks */
 }
 
 .gaming-library .item ul li:last-child {
