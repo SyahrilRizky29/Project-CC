@@ -21,10 +21,19 @@
   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
   <style>
-    /* Standard Image Sizing */
+    .custom-logo {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+      margin-left: 5px;
+      padding: 4px 0;
+      transition: transform 0.3s ease;
+    }
 
+    /* Standard Image Sizing */
     body {
-      padding-top: 0px; /* disesuaikan dengan tinggi navbar kamu */
+      padding-top: 0px;
+      /* disesuaikan dengan tinggi navbar kamu */
     }
 
     img {
@@ -239,14 +248,16 @@
       background-color: #1f2122;
       transition: all 0.3s ease;
       height: 100%;
-      min-height: auto; /* <- tinggi minimum, bisa kamu sesuaikan */
-      margin-bottom: 30px; /* kasih jarak antar card */
+      min-height: auto;
+      /* <- tinggi minimum, bisa kamu sesuaikan */
+      margin-bottom: 30px;
+      /* kasih jarak antar card */
     }
 
     .item:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 30px rgba(236, 96, 144, 0.4);
-        border: 1px solid rgba(236, 96, 144, 0.3);
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(236, 96, 144, 0.4);
+      border: 1px solid rgba(236, 96, 144, 0.3);
     }
 
     .item:hover h4 {
@@ -273,6 +284,7 @@
     .item:hover::after {
       opacity: 1;
     }
+
     .item h4 {
       transition: color 0.3s ease;
       min-height: 60px;
@@ -281,7 +293,7 @@
       font-size: 16px;
     }
 
-    
+
 
     /* Search Icon Hover */
     .search-input i:hover {
@@ -346,8 +358,6 @@
       box-shadow: 0 0 20px rgba(236, 96, 144, 0.7);
       transform: scale(1.02);
     }
-
-    
   </style>
 </head>
 
@@ -372,7 +382,7 @@
           <nav class="main-nav">
             <!-- ***** Logo Start ***** -->
             <a href="index.html" class="logo">
-              <img src="assets/images/logo.png" alt="">
+              <img src="assets/images/mylogos.png" alt="GPL Logo" class="custom-logo">
             </a>
             <!-- ***** Logo End ***** -->
             <!-- ***** Search End ***** -->
@@ -498,7 +508,8 @@
                 </div>
                 <div class="row" id="gamesContainer">
                   <!-- Game 1 -->
-                  <div class="col-lg-3 col-sm-6 py-3  " data-name="Fortnite" data-genre="Battle Royale, Action, Multiplayer"
+                  <div class="col-lg-3 col-sm-6 py-3  " data-name="Fortnite"
+                    data-genre="Battle Royale, Action, Multiplayer"
                     data-platform="PC, PlayStation, Xbox, Switch, Mobile" data-rating="4.2" data-year="2017">
                     <div class="item w-100 h-100" onclick="openPopup('Fortnite')">
                       <img src="assets/images/game-01.jpg" alt="">
@@ -511,8 +522,8 @@
                   </div>
 
                   <!-- Game 2 -->
-                  <div class="col-lg-3 col-sm-6 py-3 " data-name="CS:GO" data-genre="FPS, Multiplayer" data-platform="PC"
-                    data-rating="4.4" data-year="2012">
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="CS:GO" data-genre="FPS, Multiplayer"
+                    data-platform="PC" data-rating="4.4" data-year="2012">
                     <div class="item w-100 h-100" onclick="openPopup('CS:GO')">
                       <img src="assets/images/game-02.jpg" alt="">
                       <h4>CS:GO<br><span>PC</span></h4>
@@ -577,8 +588,9 @@
                   </div>
 
                   <!-- Game 7 -->
-                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Hogwarts Legacy" data-genre="RPG, Adventure, Open World"
-                    data-platform="PC, PlayStation, Xbox" data-rating="4.7" data-year="2023">
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Hogwarts Legacy"
+                    data-genre="RPG, Adventure, Open World" data-platform="PC, PlayStation, Xbox" data-rating="4.7"
+                    data-year="2023">
                     <div class="item w-100 h-100" onclick="openPopup('Hogwarts Legacy')">
                       <img src="assets/images/hg4.jpeg" alt="">
                       <h4>Hogwarts Legacy<br><span>PC, PlayStation, Xbox</span></h4>
@@ -655,8 +667,8 @@
                   </div>
 
                   <!-- Game 13 -->
-                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Honor of Kings" data-genre="MOBA" data-platform="Mobile"
-                    data-rating="4.5" data-year="2015">
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Honor of Kings" data-genre="MOBA"
+                    data-platform="Mobile" data-rating="4.5" data-year="2015">
                     <div class="item w-100 h-100" onclick="openPopup('Honor of Kings')">
                       <img src="assets/images/Arli.jpg" alt="">
                       <h4>Honor of Kings<br><span>Mobile</span></h4>
@@ -707,8 +719,8 @@
                   </div>
 
                   <!-- Game 17 -->
-                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Mobile Legends" data-genre="MOBA" data-platform="Mobile"
-                    data-rating="4.1" data-year="2016">
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Mobile Legends" data-genre="MOBA"
+                    data-platform="Mobile" data-rating="4.1" data-year="2016">
                     <div class="item w-100 h-100" onclick="openPopup('Mobile Legends')">
                       <img src="assets/images/mobile-legends-bang-3840x2160-14183.jpg" alt="">
                       <h4>Mobile Legends<br><span>Mobile</span></h4>
@@ -795,7 +807,8 @@
             <div class="row">
               <div class="col-lg-4">
                 <h4>About Us</h4>
-                <p>Game Platform List is your ultimate destination for discovering and exploring the best games across all platforms.</p>
+                <p>Game Platform List is your ultimate destination for discovering and exploring the best games across
+                  all platforms.</p>
               </div>
               <div class="col-lg-4">
                 <h4>Quick Links</h4>
@@ -809,14 +822,15 @@
               <div class="col-lg-4">
                 <h4>Contact Us</h4>
                 <p>Email: info@gameplatformlist.com<br>
-                Phone: (123) 456-7890</p>
+                  Phone: (123) 456-7890</p>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-12">
                 <div class="copyright">
                   <p>Copyright © 2036 <a href="#">Game Platform List</a> Company. All rights reserved.
-                    <br>Design: <a href="https://templatemo.com" target="_blank" title="free CSS templates">TemplateMo</a>
+                    <br>Design: <a href="https://templatemo.com" target="_blank"
+                      title="free CSS templates">TemplateMo</a>
                   </p>
                 </div>
               </div>
@@ -1176,11 +1190,11 @@
       document.getElementById('yearFilter').addEventListener('change', filterGames);
       document.getElementById('sortBy').addEventListener('change', filterGames);
 
-       // Header search functionality
+      // Header search functionality
       const headerSearchInput = document.querySelector('.search-input input');
       const headerSearchIcon = document.querySelector('.search-input i');
-      
-      headerSearchInput.addEventListener('keypress', function(e) {
+
+      headerSearchInput.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
           document.getElementById('searchText').value = headerSearchInput.value;
           filterGames();
@@ -1188,8 +1202,8 @@
           document.querySelector('.filter-toggle').scrollIntoView({ behavior: 'smooth' });
         }
       });
-      
-      headerSearchIcon.addEventListener('click', function() {
+
+      headerSearchIcon.addEventListener('click', function () {
         document.getElementById('searchText').value = headerSearchInput.value;
         filterGames();
         // Scroll to filters
