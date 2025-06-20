@@ -22,6 +22,11 @@
 
   <style>
     /* Standard Image Sizing */
+
+    body {
+      padding-top: 0px; /* disesuaikan dengan tinggi navbar kamu */
+    }
+
     img {
       max-width: 100%;
       height: auto;
@@ -29,7 +34,16 @@
     }
 
     /* Game Cards */
-    .item img,
+    .item img {
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      flex-shrink: 0;
+      width: 100%;
+      transition: all 0.3s ease;
+      margin-bottom: 10px;
+    }
+
     .thumb img,
     .templatemo-item {
       width: 100%;
@@ -217,11 +231,22 @@
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 15px;
+      border-radius: 10px;
+      background-color: #1f2122;
+      transition: all 0.3s ease;
+      height: 100%;
+      min-height: auto; /* <- tinggi minimum, bisa kamu sesuaikan */
+      margin-bottom: 30px; /* kasih jarak antar card */
     }
 
     .item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(236, 96, 144, 0.3);
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(236, 96, 144, 0.4);
+        border: 1px solid rgba(236, 96, 144, 0.3);
     }
 
     .item:hover h4 {
@@ -229,13 +254,34 @@
     }
 
     .item:hover img {
+      transform: scale(1.05);
       filter: brightness(1.1);
-      box-shadow: 0 0 15px rgba(236, 96, 144, 0.5);
     }
 
+    .item::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .item:hover::after {
+      opacity: 1;
+    }
     .item h4 {
       transition: color 0.3s ease;
+      min-height: 60px;
+      margin-top: 15px;
+      color: white;
+      font-size: 16px;
     }
+
+    
 
     /* Search Icon Hover */
     .search-input i:hover {
@@ -245,7 +291,7 @@
 
     /* Fixed Header */
     .header-area {
-      position: fixed !important;
+      position: sticky !important;
       top: 0;
       width: 100%;
       z-index: 1000;
@@ -301,25 +347,7 @@
       transform: scale(1.02);
     }
 
-    @media (max-width: 768px) {
-      .popup-content {
-        flex-direction: column;
-      }
-
-      .popup-content img {
-        width: 100%;
-        height: 200px;
-        margin-bottom: 20px;
-      }
-
-      .filter-row {
-        flex-direction: column;
-      }
-      
-      .header-area {
-        position: relative !important;
-      }
-    }
+    
   </style>
 </head>
 
@@ -358,10 +386,9 @@
             <!-- ***** Search End ***** -->
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
-              <li><a href="index.html" class="active">Home</a></li>
-              <li><a href="browse.html">Browse</a></li>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="browse.html" class="active">Browse</a></li>
               <li><a href="details.html">Details</a></li>
-              <li><a href="streams.html">Streams</a></li>
               <li><a href="profile.html">Profile <img src="assets/images/profile-header.jpg" alt=""></a></li>
             </ul>
             <a class='menu-trigger'>
@@ -374,7 +401,7 @@
     </div>
   </header>
 
-  <div class="container" style="margin-top: 100px;">
+  <div class="container" style="margin-top: 160px;">
     <div class="row">
       <div class="col-lg-12">
         <div class="page-content">
@@ -471,9 +498,9 @@
                 </div>
                 <div class="row" id="gamesContainer">
                   <!-- Game 1 -->
-                  <div class="col-lg-3 col-sm-6" data-name="Fortnite" data-genre="Battle Royale, Action, Multiplayer"
+                  <div class="col-lg-3 col-sm-6 py-3  " data-name="Fortnite" data-genre="Battle Royale, Action, Multiplayer"
                     data-platform="PC, PlayStation, Xbox, Switch, Mobile" data-rating="4.2" data-year="2017">
-                    <div class="item" onclick="openPopup('Fortnite')">
+                    <div class="item w-100 h-100" onclick="openPopup('Fortnite')">
                       <img src="assets/images/game-01.jpg" alt="">
                       <h4>Fortnite<br><span>PC, PlayStation, Xbox, Switch, Mobile</span></h4>
                       <ul>
@@ -484,9 +511,9 @@
                   </div>
 
                   <!-- Game 2 -->
-                  <div class="col-lg-3 col-sm-6" data-name="CS:GO" data-genre="FPS, Multiplayer" data-platform="PC"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="CS:GO" data-genre="FPS, Multiplayer" data-platform="PC"
                     data-rating="4.4" data-year="2012">
-                    <div class="item" onclick="openPopup('CS:GO')">
+                    <div class="item w-100 h-100" onclick="openPopup('CS:GO')">
                       <img src="assets/images/game-02.jpg" alt="">
                       <h4>CS:GO<br><span>PC</span></h4>
                       <ul>
@@ -497,9 +524,9 @@
                   </div>
 
                   <!-- Game 3 -->
-                  <div class="col-lg-3 col-sm-6" data-name="PUBG" data-genre="Battle Royale, FPS"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="PUBG" data-genre="Battle Royale, FPS"
                     data-platform="PC, PlayStation, Xbox, Mobile" data-rating="4.1" data-year="2017">
-                    <div class="item" onclick="openPopup('PUBG')">
+                    <div class="item w-100 h-100" onclick="openPopup('PUBG')">
                       <img src="assets/images/game-03.jpg" alt="">
                       <h4>PUBG<br><span>PC, PlayStation, Xbox, Mobile</span></h4>
                       <ul>
@@ -510,10 +537,10 @@
                   </div>
 
                   <!-- Game 4 -->
-                  <div class="col-lg-3 col-sm-6" data-name="Assassin's Creed IV"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Assassin's Creed IV"
                     data-genre="Action, Adventure, Open World" data-platform="PC, PlayStation, Xbox" data-rating="4.6"
                     data-year="2013">
-                    <div class="item" onclick="openPopup('Assassin\'s Creed IV')">
+                    <div class="item w-100 h-100" onclick="openPopup('Assassin\'s Creed IV')">
                       <img src="assets/images/AC2.png" alt="">
                       <h4>Assassin's Creed IV<br><span>PC, PlayStation, Xbox</span></h4>
                       <ul>
@@ -524,9 +551,9 @@
                   </div>
 
                   <!-- Game 5 -->
-                  <div class="col-lg-3 col-sm-6" data-name="Cyberpunk 2077" data-genre="RPG, Open World, Action"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Cyberpunk 2077" data-genre="RPG, Open World, Action"
                     data-platform="PC, PlayStation, Xbox" data-rating="4.3" data-year="2020">
-                    <div class="item" onclick="openPopup('Cyberpunk 2077')">
+                    <div class="item w-100 h-100" onclick="openPopup('Cyberpunk 2077')">
                       <img src="assets/images/anakpunk.jpg" alt="">
                       <h4>Cyberpunk 2077<br><span>PC, PlayStation, Xbox</span></h4>
                       <ul>
@@ -537,9 +564,9 @@
                   </div>
 
                   <!-- Game 6 -->
-                  <div class="col-lg-3 col-sm-6" data-name="Avatar: FoP" data-genre="Adventure, Open World"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Avatar: FoP" data-genre="Adventure, Open World"
                     data-platform="PC, PlayStation, Xbox" data-rating="4.5" data-year="2023">
-                    <div class="item" onclick="openPopup('Avatar: FoP')">
+                    <div class="item w-100 h-100" onclick="openPopup('Avatar: FoP')">
                       <img src="assets/images/krisna.jpg" alt="">
                       <h4>Avatar: FoP<br><span>PC, PlayStation, Xbox</span></h4>
                       <ul>
@@ -550,9 +577,9 @@
                   </div>
 
                   <!-- Game 7 -->
-                  <div class="col-lg-3 col-sm-6" data-name="Hogwarts Legacy" data-genre="RPG, Adventure, Open World"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Hogwarts Legacy" data-genre="RPG, Adventure, Open World"
                     data-platform="PC, PlayStation, Xbox" data-rating="4.7" data-year="2023">
-                    <div class="item" onclick="openPopup('Hogwarts Legacy')">
+                    <div class="item w-100 h-100" onclick="openPopup('Hogwarts Legacy')">
                       <img src="assets/images/hg4.jpeg" alt="">
                       <h4>Hogwarts Legacy<br><span>PC, PlayStation, Xbox</span></h4>
                       <ul>
@@ -563,9 +590,9 @@
                   </div>
 
                   <!-- Game 8 -->
-                  <div class="col-lg-3 col-sm-6" data-name="Elden Ring" data-genre="RPG, Action, Adventure"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Elden Ring" data-genre="RPG, Action, Adventure"
                     data-platform="PC, PlayStation, Xbox" data-rating="4.9" data-year="2022">
-                    <div class="item" onclick="openPopup('Elden Ring')">
+                    <div class="item w-100 h-100" onclick="openPopup('Elden Ring')">
                       <img src="assets/images/ER4.jpeg" alt="">
                       <h4>Elden Ring<br><span>PC, PlayStation, Xbox</span></h4>
                       <ul>
@@ -576,9 +603,9 @@
                   </div>
 
                   <!-- Game 9 -->
-                  <div class="col-lg-3 col-sm-6" data-name="DOOM Eternal" data-genre="FPS, Action"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="DOOM Eternal" data-genre="FPS, Action"
                     data-platform="PC, PlayStation, Xbox" data-rating="4.5" data-year="2020">
-                    <div class="item" onclick="openPopup('DOOM Eternal')">
+                    <div class="item w-100 h-100" onclick="openPopup('DOOM Eternal')">
                       <img src="assets/images/Doom.jpeg" alt="">
                       <h4>DOOM Eternal<br><span>PC, PlayStation, Xbox</span></h4>
                       <ul>
@@ -589,9 +616,9 @@
                   </div>
 
                   <!-- Game 10 -->
-                  <div class="col-lg-3 col-sm-6" data-name="GTA V" data-genre="Action, Adventure, Open World"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="GTA V" data-genre="Action, Adventure, Open World"
                     data-platform="PC, PlayStation, Xbox" data-rating="4.6" data-year="2013">
-                    <div class="item" onclick="openPopup('GTA V')">
+                    <div class="item w-100 h-100" onclick="openPopup('GTA V')">
                       <img src="assets/images/grand-theft-auto-v.jpg" alt="">
                       <h4>GTA V<br><span>PC, PlayStation, Xbox</span></h4>
                       <ul>
@@ -602,9 +629,9 @@
                   </div>
 
                   <!-- Game 11 -->
-                  <div class="col-lg-3 col-sm-6" data-name="Wuthering Waves" data-genre="Action, RPG, Open World"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Wuthering Waves" data-genre="Action, RPG, Open World"
                     data-platform="PC, Mobile" data-rating="4.7" data-year="2024">
-                    <div class="item" onclick="openPopup('Wuthering Waves')">
+                    <div class="item w-100 h-100" onclick="openPopup('Wuthering Waves')">
                       <img src="assets/images/wuthering-waves-3840x2160-19530.jpg" alt="">
                       <h4>Wuthering Waves<br><span>PC, Mobile</span></h4>
                       <ul>
@@ -615,9 +642,9 @@
                   </div>
 
                   <!-- Game 12 -->
-                  <div class="col-lg-3 col-sm-6" data-name="Zenless Zone Zero" data-genre="Action, RPG"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Zenless Zone Zero" data-genre="Action, RPG"
                     data-platform="PC, Mobile" data-rating="4.4" data-year="2024">
-                    <div class="item" onclick="openPopup('Zenless Zone Zero')">
+                    <div class="item w-100 h-100" onclick="openPopup('Zenless Zone Zero')">
                       <img src="assets/images/Zenless Zone Zero.jpeg" alt="">
                       <h4>Zenless Zone Zero<br><span>PC, Mobile</span></h4>
                       <ul>
@@ -628,9 +655,9 @@
                   </div>
 
                   <!-- Game 13 -->
-                  <div class="col-lg-3 col-sm-6" data-name="Honor of Kings" data-genre="MOBA" data-platform="Mobile"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Honor of Kings" data-genre="MOBA" data-platform="Mobile"
                     data-rating="4.5" data-year="2015">
-                    <div class="item" onclick="openPopup('Honor of Kings')">
+                    <div class="item w-100 h-100" onclick="openPopup('Honor of Kings')">
                       <img src="assets/images/Arli.jpg" alt="">
                       <h4>Honor of Kings<br><span>Mobile</span></h4>
                       <ul>
@@ -641,9 +668,9 @@
                   </div>
 
                   <!-- Game 14 -->
-                  <div class="col-lg-3 col-sm-6" data-name="COD: Black Ops" data-genre="FPS"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="COD: Black Ops" data-genre="FPS"
                     data-platform="PC, PlayStation, Xbox" data-rating="4.3" data-year="2010">
-                    <div class="item" onclick="openPopup('COD: Black Ops')">
+                    <div class="item w-100 h-100" onclick="openPopup('COD: Black Ops')">
                       <img src="assets/images/COD2.jpg" alt="">
                       <h4>COD: Black Ops<br><span>PC, PlayStation, Xbox</span></h4>
                       <ul>
@@ -654,9 +681,9 @@
                   </div>
 
                   <!-- Game 15 -->
-                  <div class="col-lg-3 col-sm-6" data-name="God of War" data-genre="Action, Adventure"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="God of War" data-genre="Action, Adventure"
                     data-platform="PC, PlayStation, Xbox" data-rating="4.9" data-year="2018">
-                    <div class="item" onclick="openPopup('God of War')">
+                    <div class="item w-100 h-100" onclick="openPopup('God of War')">
                       <img src="assets/images/kratos3.jpg" alt="">
                       <h4>God of War<br><span>PC, PlayStation, Xbox</span></h4>
                       <ul>
@@ -667,9 +694,9 @@
                   </div>
 
                   <!-- Game 16 -->
-                  <div class="col-lg-3 col-sm-6" data-name="Counter Strike 2" data-genre="FPS" data-platform="PC"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Counter Strike 2" data-genre="FPS" data-platform="PC"
                     data-rating="4.4" data-year="2023">
-                    <div class="item" onclick="openPopup('Counter Strike 2')">
+                    <div class="item w-100 h-100" onclick="openPopup('Counter Strike 2')">
                       <img src="assets/images/cs2.png" alt="">
                       <h4>Counter Strike 2<br><span>PC</span></h4>
                       <ul>
@@ -680,9 +707,9 @@
                   </div>
 
                   <!-- Game 17 -->
-                  <div class="col-lg-3 col-sm-6" data-name="Mobile Legends" data-genre="MOBA" data-platform="Mobile"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Mobile Legends" data-genre="MOBA" data-platform="Mobile"
                     data-rating="4.1" data-year="2016">
-                    <div class="item" onclick="openPopup('Mobile Legends')">
+                    <div class="item w-100 h-100" onclick="openPopup('Mobile Legends')">
                       <img src="assets/images/mobile-legends-bang-3840x2160-14183.jpg" alt="">
                       <h4>Mobile Legends<br><span>Mobile</span></h4>
                       <ul>
@@ -693,9 +720,9 @@
                   </div>
 
                   <!-- Game 18 -->
-                  <div class="col-lg-3 col-sm-6" data-name="Blue Archive" data-genre="RPG, Strategy"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Blue Archive" data-genre="RPG, Strategy"
                     data-platform="PC, Mobile" data-rating="4.2" data-year="2021">
-                    <div class="item" onclick="openPopup('Blue Archive')">
+                    <div class="item w-100 h-100" onclick="openPopup('Blue Archive')">
                       <img src="assets/images/BA.jpeg" alt="">
                       <h4>Blue Archive<br><span>PC, Mobile</span></h4>
                       <ul>
@@ -706,9 +733,9 @@
                   </div>
 
                   <!-- Game 19 -->
-                  <div class="col-lg-3 col-sm-6" data-name="Genshin Impact" data-genre="Action, RPG, Open World"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Genshin Impact" data-genre="Action, RPG, Open World"
                     data-platform="PC, PlayStation, Mobile" data-rating="4.1" data-year="2020">
-                    <div class="item" onclick="openPopup('Genshin Impact')">
+                    <div class="item w-100 h-100" onclick="openPopup('Genshin Impact')">
                       <img src="assets/images/bensin.jpg" alt="">
                       <h4>Genshin Impact<br><span>PC, PlayStation, Mobile</span></h4>
                       <ul>
@@ -719,9 +746,9 @@
                   </div>
 
                   <!-- Game 20 -->
-                  <div class="col-lg-3 col-sm-6" data-name="Among Us" data-genre="Strategy, Social"
+                  <div class="col-lg-3 col-sm-6 py-3 " data-name="Among Us" data-genre="Strategy, Social"
                     data-platform="PC, PlayStation, Mobile" data-rating="4.3" data-year="2018">
-                    <div class="item" onclick="openPopup('Among Us')">
+                    <div class="item w-100 h-100" onclick="openPopup('Among Us')">
                       <img src="assets/images/among-us-game.png" alt="">
                       <h4>Among Us<br><span>PC, PlayStation, Mobile</span></h4>
                       <ul>
